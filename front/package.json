@@ -1,0 +1,31 @@
+{
+  "name": "taiga-contrib-github-auth",
+  "version": "0.0.1",
+  "description": "Taiga contrib plugin for github authentication",
+  "main": "index.js",
+  "scripts": {
+    "build-jade": "node_modules/jade/bin/jade.js partials/contrib/github_auth.jade -o dist/",
+    "build-coffee": "cat coffee/github_auth.coffee dist/github_auth.html | node_modules/coffee-script/bin/coffee --compile --stdio > dist/github_auth.js",
+    "build": "npm run build-jade; npm run build-coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taigaio/taiga-contrib-github-auth"
+  },
+  "keywords": [
+    "github",
+    "taiga",
+    "authentication",
+    "plugin"
+  ],
+  "author": "Jesús Espino <jesus.espino@kaleidos.net>",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/taigaio/taiga-contrib-github-auth/issues"
+  },
+  "homepage": "https://github.com/taigaio/taiga-contrib-github-auth",
+  "dependencies": {
+    "coffee-script": "^1.8.0",
+    "jade": "^1.9.1"
+  }
+}
