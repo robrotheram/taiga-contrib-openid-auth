@@ -20,7 +20,7 @@ from django.apps import apps
 from taiga.base.utils.slug import slugify_uniquely
 from taiga.base import response
 from taiga.auth.services import send_register_email
-from taiga.auth.services import make_auth_response_data
+from taiga.auth.services import make_auth_response_data, get_membership_by_token
 from taiga.auth.signals import user_registered as user_registered_signal
 
 from . import connector
