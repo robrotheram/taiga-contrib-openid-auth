@@ -18,7 +18,6 @@ from django.db import transaction as tx
 from django.apps import apps
 
 from taiga.base.utils.slug import slugify_uniquely
-from taiga.base import response
 from taiga.auth.services import send_register_email
 from taiga.auth.services import make_auth_response_data, get_membership_by_token
 from taiga.auth.signals import user_registered as user_registered_signal
@@ -81,4 +80,4 @@ def github_login_func(request):
                            bio=user_info.bio,
                            token=token)
     data = make_auth_response_data(user)
-    return response.Ok(data)
+    return data
