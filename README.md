@@ -46,3 +46,15 @@ Include in your dist/js/conf.json in the contribPlugins list the value `"/js/git
     "contribPlugins": ["/js/github_auth.js"]
 ...
 ```
+
+Running tests
+-------------
+
+We only have backend tests, you have to add your taiga-back directory to the
+PYTHONPATH environment variable, and run py.test, for example:
+
+```bash
+  cd back
+  add2virtualenv /home/taiga/taiga-back/
+  py.test
+```
