@@ -43,6 +43,7 @@ Include in your dist/js/conf.json in the contribPlugins list the value `"/js/git
 
 ```json
 ...
+    "gitHubClientId": "YOUR-GITHUB-CLIENT-ID",
     "contribPlugins": ["/js/github_auth.js"]
 ...
 ```
