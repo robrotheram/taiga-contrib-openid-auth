@@ -29,14 +29,14 @@ Download in your `dist/js/` directory of Taiga front the `taiga-contrib-github-a
 
 ```bash
   cd dist/js
-  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-github-auth/$(pip show taiga-contrib-slack | awk '/^Version: /{print $2}')/front/dist/github_auth.js"
+  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-github-auth/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist/github_auth.js"
 ```
 
 Download in your `dist/images/contrib` directory of Taiga front the `taiga-contrib-github-auth` github icon:
 
 ```bash
   cd dist/images/contrib
-  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-github-auth/$(pip show taiga-contrib-slack | awk '/^Version: /{print $2}')/front/images/contrib/github-logo.png"
+  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-github-auth/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/images/contrib/github-logo.png"
 ```
 
 Include in your dist/js/conf.json in the contribPlugins list the value `"/js/github_auth.js"`:
