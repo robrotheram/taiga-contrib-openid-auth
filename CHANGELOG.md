@@ -1,8 +1,8 @@
 # Changelog #
 
 
-## 0.0.4 (unreleased)
-- ...
+## 0.0.4 (215-05-21)
+- Compatible with Taiga 1.7
 
 
 ## 0.0.3 (2015-02-17)
@@ -15,5 +15,3 @@
 
 ## 0.0.1 (2015-02-10)
 - Initial release.
-
-
