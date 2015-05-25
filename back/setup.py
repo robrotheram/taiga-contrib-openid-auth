@@ -17,7 +17,7 @@ setup(
     include_package_data = True,
     packages = find_packages(),
     install_requires=[
-        'django >= 1.7',
+        'django == 1.7.8',
     ],
     setup_requires = [
         'versiontools >= 1.8',

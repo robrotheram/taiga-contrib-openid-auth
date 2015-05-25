@@ -1,7 +1,11 @@
 # Changelog #
 
 
-## 0.0.4 (215-05-21)
+## 0.0.5 (2015-05-25)
+- Force to use Django == 1.7.8
+
+
+## 0.0.4 (2015-05-21)
 - Compatible with Taiga 1.7
 
 
