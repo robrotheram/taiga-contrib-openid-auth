@@ -1,5 +1,8 @@
 # Changelog #
 
+## 0.0.6 (unreleased)
+- Force to use Django == 1.8.5
+
 
 ## 0.0.5 (2015-05-25)
 - Force to use Django == 1.7.8
