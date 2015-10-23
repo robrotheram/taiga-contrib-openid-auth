@@ -57,7 +57,7 @@ GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $co
             token = $params.token
 
             return if not (type == "github" and code)
-            $loader.start()
+            $loader.start(true)
 
             data = {code: code, token: token}
             $auth.login(data, type).then(loginOnSuccess, loginOnError)
