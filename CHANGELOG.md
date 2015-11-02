@@ -1,10 +1,11 @@
 # Changelog #
 
 
-## 0.0.6 (2015-11-02)
+## 0.0.7 (2015-11-02)
 - Force to use Django == 1.8.5
-- Fix loader autoclose
 
+## 0.0.6 (2015-10-23)
+- Fix loader autoclose
 
 ## 0.0.5 (2015-05-25)
 - Force to use Django == 1.7.8
