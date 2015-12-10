@@ -29,26 +29,24 @@ Modify your settings/local.py and include the line:
 
 ### Taiga Front
 
-Download in your `dist/js/` directory of Taiga front the `taiga-contrib-github-auth` compiled code:
+Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-github-auth` compiled code (you need subversion in your system):
 
 ```bash
-  cd dist/js
-  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-github-auth/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist/github_auth.js"
+  cd dist/
+  mkdir -p plugins
+  cd plugins
+  svn export "https://github.com/taigaio/taiga-contrib-github-auth/tags/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist"  "github-auth"
 ```
 
-Download in your `dist/images/contrib` directory of Taiga front the `taiga-contrib-github-auth` github icon:
-
-```bash
-  cd dist/images/contrib
-  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-github-auth/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/images/contrib/github-logo.png"
-```
-
-Include in your dist/js/conf.json in the contribPlugins list the value `"/js/github_auth.js"`:
+Include in your dist/conf.json in the contribPlugins list the value `"/plugins/github-auth/github-auth.json"`:
 
 ```json
 ...
     "gitHubClientId": "YOUR-GITHUB-CLIENT-ID",
-    "contribPlugins": ["/js/github_auth.js"]
+    "contribPlugins": [
+        (...)
+        "/plugins/github-auth/github-auth.json"
+    ]
 ...
 ```
 

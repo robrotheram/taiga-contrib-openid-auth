@@ -1,12 +1,14 @@
 {
   "name": "taiga-contrib-github-auth",
-  "version": "0.0.7",
+  "version": "1.9.1",
   "description": "Taiga contrib plugin for github authentication",
   "main": "index.js",
   "scripts": {
-    "build-jade": "node_modules/jade/bin/jade.js partials/contrib/github_auth.jade -o dist/",
-    "build-coffee": "cat coffee/github_auth.coffee dist/github_auth.html | node_modules/coffee-script/bin/coffee --compile --stdio > dist/github_auth.js",
-    "build": "npm run build-jade; npm run build-coffee"
+    "clean": "rm -rf dist || true",
+    "create-dist": "mkdir -p dist",
+    "copy-statics": "cp github-auth.json dist/; cp -r images dist/",
+    "build-js": "{ cat 'coffee/github-auth.coffee'; node_modules/jade/bin/jade.js < 'partials/github-auth.jade'; } | node_modules/coffee-script/bin/coffee --compile --stdio > dist/github-auth.js",
+    "build": "npm run clean; npm run create-dist;  npm run copy-statics; npm run build-js"
   },
   "repository": {
     "type": "git",
