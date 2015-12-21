@@ -21,6 +21,10 @@ Modify your settings/local.py and include the line:
 
 ```python
   INSTALLED_APPS += ["taiga_contrib_github_auth"]
+
+  # Get these from https://github.com/settings/developers
+  GITHUB_API_CLIENT_ID = "YOUR-GITHUB-CLIENT-ID"
+  GITHUB_API_CLIENT_SECRET = "YOUR-GITHUB-CLIENT-SECRET"
 ```
 
 ### Taiga Front
