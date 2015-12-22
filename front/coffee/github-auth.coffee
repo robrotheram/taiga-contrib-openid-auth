@@ -1,20 +1,7 @@
-@.taigaContribPlugins = @.taigaContribPlugins or []
-
-githubAuthInfo = {
-    slug: "github-auth"
-    name: "Github Auth"
-    type: "auth"
-    module: "taigaContrib.githubAuth"
-    template: "contrib/github_auth"
-}
-
-@.taigaContribPlugins.push(githubAuthInfo)
-
-module = angular.module('taigaContrib.githubAuth', [])
-
 AUTH_URL = "https://github.com/login/oauth/authorize"
 
-GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $confirm, $auth, $navUrls, $loader) ->
+GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $confirm,
+                              $auth, $navUrls, $loader) ->
     # Login or registar a user with his/her github account.
     #
     # Example:
@@ -78,6 +65,7 @@ GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $co
         template: ""
     }
 
+module = angular.module('taigaContrib.githubAuth', [])
 module.directive("tgGithubLoginButton", ["$window", '$routeParams', "$tgLocation", "$tgConfig", "$tgEvents",
                                          "$tgConfirm", "$tgAuth", "$tgNavUrls", "tgLoader",
                                          GithubLoginButtonDirective])

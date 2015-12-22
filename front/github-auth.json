@@ -1,0 +1,9 @@
+{
+    "name": "Github Auth",
+    "slug": "github-auth",
+    "description": "Authenticate with GitHub accounts.",
+    "type": "auth",
+    "module": "taigaContrib.githubAuth",
+    "template": "plugin/github-auth",
+    "js": "/plugins/github-auth/github-auth.js"
+}

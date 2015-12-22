@@ -16,9 +16,7 @@ setup(
     license = 'AGPL',
     include_package_data = True,
     packages = find_packages(),
-    install_requires=[
-        'django == 1.8.5',
-    ],
+    install_requires=[],
     setup_requires = [
         'versiontools >= 1.8',
     ],
