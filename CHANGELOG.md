@@ -1,7 +1,7 @@
 # Changelog #
 
 
-## 1.9.1 (Unreleased)
+## 1.9.1 (2016-01-05)
 - [Front] Migrate to the new plugin system
 - Remove django dependency to prevent errors.
 
