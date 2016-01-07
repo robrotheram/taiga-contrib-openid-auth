@@ -32,8 +32,8 @@ GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $co
             $location.search("code", null)
             $loader.pageLoaded()
 
-            if response.data.error_message
-                $confirm.notify("light-error", response.data.error_message )
+            if response.data._error_message
+                $confirm.notify("light-error", response.data._error_message )
             else
                 $confirm.notify("light-error", "Our Oompa Loompas have not been able to get you
                                                 credentials from GitHub.")  #TODO: i18n
