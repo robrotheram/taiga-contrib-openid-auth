@@ -15,9 +15,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import transaction as tx
+from django.db import IntegrityError
+from django.utils.translation import ugettext as _
+
 from django.apps import apps
 
 from taiga.base.utils.slug import slugify_uniquely
+from taiga.base import exceptions as exc
 from taiga.auth.services import send_register_email
 from taiga.auth.services import make_auth_response_data, get_membership_by_token
 from taiga.auth.signals import user_registered as user_registered_signal
@@ -61,8 +65,12 @@ def github_register(username:str, email:str, full_name:str, github_id:int, bio:s
 
     if token:
         membership = get_membership_by_token(token)
-        membership.user = user
-        membership.save(update_fields=["user"])
+
+        try:
+            membership.user = user
+            membership.save(update_fields=["user"])
+        except IntegrityError:
+            raise exc.IntegrityError(_("This user is already a member of the project."))
 
     return user
 

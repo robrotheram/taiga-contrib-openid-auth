@@ -1,15 +1,23 @@
 # Changelog #
 
 
+## 1.10.0 (Unreleased)
+- Fix integrity error: detect duplicated users when accepting
+  Taiga invitations.
+
+
 ## 1.9.1 (2016-01-05)
 - [Front] Migrate to the new plugin system
 - Remove django dependency to prevent errors.
 
+
 ## 0.0.7 (2015-11-02)
 - Force to use Django == 1.8.5
 
+
 ## 0.0.6 (2015-10-23)
 - Fix loader autoclose
+
 
 ## 0.0.5 (2015-05-25)
 - Force to use Django == 1.7.8

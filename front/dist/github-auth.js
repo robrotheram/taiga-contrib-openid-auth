@@ -27,8 +27,8 @@
         $location.search("state", null);
         $location.search("code", null);
         $loader.pageLoaded();
-        if (response.data.error_message) {
-          return $confirm.notify("light-error", response.data.error_message);
+        if (response.data._error_message) {
+          return $confirm.notify("light-error", response.data._error_message);
         } else {
           return $confirm.notify("light-error", "Our Oompa Loompas have not been able to get you credentials from GitHub.");
         }
