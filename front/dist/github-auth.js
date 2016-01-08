@@ -72,7 +72,7 @@
 
   module.run([
     '$templateCache', function($templateCache) {
-      return $templateCache.put('plugin/github-auth', '<div tg-github-login-button="tg-github-login-button"><a href="" title="Enter with your github account" class="button button-auth"><img src="/plugins/github-auth/images/github-logo.png"/><span>Login with Github</span></a></div>');
+      return $templateCache.put('plugin/github-auth', '<div tg-github-login-button="tg-github-login-button"><a href="" title="Enter with your github account" class="button button-auth"><img src="/plugins/github-auth/images/github-logo.png"/><span>Sign in with Github</span></a></div>');
     }
   ]);
 
