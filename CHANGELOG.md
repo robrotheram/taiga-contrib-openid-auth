@@ -1,9 +1,10 @@
 # Changelog #
 
 
-## 1.10.0 (Unreleased)
+## 1.10.0 (2016-01-30)
 - Fix integrity error: detect duplicated users when accepting
   Taiga invitations.
+- Compatible with Taiga 1.10.0
 
 
 ## 1.9.1 (2016-01-05)
