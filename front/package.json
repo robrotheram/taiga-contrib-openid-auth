@@ -1,6 +1,6 @@
 {
   "name": "taiga-contrib-github-auth",
-  "version": "1.10.0",
+  "version": "2.0.0",
   "description": "Taiga contrib plugin for github authentication",
   "main": "index.js",
   "scripts": {
