@@ -3,13 +3,6 @@
   "version": "2.0.0",
   "description": "Taiga contrib plugin for github authentication",
   "main": "index.js",
-  "scripts": {
-    "clean": "rm -rf dist || true",
-    "create-dist": "mkdir -p dist",
-    "copy-statics": "cp github-auth.json dist/; cp -r images dist/",
-    "build-js": "{ cat 'coffee/github-auth.coffee'; node_modules/jade/bin/jade.js < 'partials/github-auth.jade'; } | node_modules/coffee-script/bin/coffee --compile --stdio > dist/github-auth.js",
-    "build": "npm run clean; npm run create-dist;  npm run copy-statics; npm run build-js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/taigaio/taiga-contrib-github-auth"
@@ -29,5 +22,18 @@
   "dependencies": {
     "coffee-script": "^1.8.0",
     "jade": "^1.9.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-cached": "^1.1.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-remember": "^0.3.0",
+    "gulp-uglify": "^1.5.2",
+    "merge-stream": "^1.0.0"
   }
 }

@@ -8,8 +8,9 @@ The Taiga plugin for github authentication.
 
 Installation
 ------------
+### Production env
 
-### Taiga Back
+#### Taiga Back
 
 In your Taiga back python virtualenv install the pip package `taiga-contrib-github-auth` with:
 
@@ -17,7 +18,7 @@ In your Taiga back python virtualenv install the pip package `taiga-contrib-gith
   pip install taiga-contrib-github-auth
 ```
 
-Modify your settings/local.py and include the line:
+Modify your `settings/local.py` and include the line:
 
 ```python
   INSTALLED_APPS += ["taiga_contrib_github_auth"]
@@ -27,7 +28,7 @@ Modify your settings/local.py and include the line:
   GITHUB_API_CLIENT_SECRET = "YOUR-GITHUB-CLIENT-SECRET"
 ```
 
-### Taiga Front
+#### Taiga Front
 
 Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-github-auth` compiled code (you need subversion in your system):
 
@@ -38,7 +39,7 @@ Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-git
   svn export "https://github.com/taigaio/taiga-contrib-github-auth/tags/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist"  "github-auth"
 ```
 
-Include in your dist/conf.json in the contribPlugins list the value `"/plugins/github-auth/github-auth.json"`:
+Include in your `dist/conf.json` in the contribPlugins list the value `"/plugins/github-auth/github-auth.json"`:
 
 ```json
 ...
@@ -50,10 +51,66 @@ Include in your dist/conf.json in the contribPlugins list the value `"/plugins/g
 ...
 ```
 
+### Dev env
+
+#### Taiga Back
+
+Clone the repo and
+
+```bash
+  cd taiga-contrib-github-auth/back
+  workon taiga
+  pip install -e .
+```
+
+Modify `taiga-back/settings/local.py` and include the line:
+
+```python
+  INSTALLED_APPS += ["taiga_contrib_github_auth"]
+
+  # Get these from https://github.com/settings/developers
+  GITHUB_API_CLIENT_ID = "YOUR-GITHUB-CLIENT-ID"
+  GITHUB_API_CLIENT_SECRET = "YOUR-GITHUB-CLIENT-SECRET"
+```
+
+#### Taiga Front
+
+```bash
+  npm install
+  gulp
+```
+
+Link `dist` in `taiga-front` plugins directory:
+
+```bash
+  cd taiga-front/dist
+  mkdir -p plugins
+  cd plugins
+  ln -s ../../../taiga-contrib-cookie-warning/dist cookie-warning
+```
+
+Include in your `dist/conf.json` in `privacyPolicyUrl` the url to the information of your Privacy Policy and in the `contribPlugins` list the value `"/plugins/cookie-warning/cookie-warning.json"`:
+
+```json
+...
+    "privacyPolicyUrl": "http://example.com/privacy-policy.html"
+    "contribPlugins": [
+        (...)
+        "/plugins/cookie-warning/cookie-warning.json"
+    ]
+...
+```
+If you only want to build `dist` use:
+
+```bash
+  npm install
+  gulp build
+```
+
 Running tests
 -------------
 
-We only have backend tests, you have to add your taiga-back directory to the
+We only have backend tests, you have to add your `taiga-back` directory to the
 PYTHONPATH environment variable, and run py.test, for example:
 
 ```bash
