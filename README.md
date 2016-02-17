@@ -39,7 +39,7 @@ Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-git
   svn export "https://github.com/taigaio/taiga-contrib-github-auth/tags/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist"  "github-auth"
 ```
 
-Include in your `dist/conf.json` in the contribPlugins list the value `"/plugins/github-auth/github-auth.json"`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"`:
 
 ```json
 ...
@@ -86,20 +86,21 @@ Link `dist` in `taiga-front` plugins directory:
   cd taiga-front/dist
   mkdir -p plugins
   cd plugins
-  ln -s ../../../taiga-contrib-cookie-warning/dist cookie-warning
+  ln -s ../../../taiga-contrib-github-auth/dist github-auth
 ```
 
-Include in your `dist/conf.json` in `privacyPolicyUrl` the url to the information of your Privacy Policy and in the `contribPlugins` list the value `"/plugins/cookie-warning/cookie-warning.json"`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"`:
 
 ```json
 ...
-    "privacyPolicyUrl": "http://example.com/privacy-policy.html"
+    "gitHubClientId": "YOUR-GITHUB-CLIENT-ID",
     "contribPlugins": [
         (...)
-        "/plugins/cookie-warning/cookie-warning.json"
+        "/plugins/github-auth/github-auth.json"
     ]
 ...
 ```
+
 If you only want to build `dist` use:
 
 ```bash
