@@ -75,12 +75,7 @@ Modify `taiga-back/settings/local.py` and include the line:
 
 #### Taiga Front
 
-```bash
-  npm install
-  gulp
-```
-
-Link `dist` in `taiga-front` plugins directory:
+After clone the repo link `dist` in `taiga-front` plugins directory:
 
 ```bash
   cd taiga-front/dist
@@ -101,12 +96,15 @@ Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugi
 ...
 ```
 
-If you only want to build `dist` use:
+In the plugin source dir `taiga-contrib-github-auth/front` run
 
 ```bash
-  npm install
-  gulp build
+npm install
 ```
+and use:
+
+- `gulp` to regenerate the source and watch for changes.
+- `gulp build` to only regenerate the source.
 
 Running tests
 -------------
@@ -119,3 +117,4 @@ PYTHONPATH environment variable, and run py.test, for example:
   add2virtualenv /home/taiga/taiga-back/
   py.test
 ```
+
