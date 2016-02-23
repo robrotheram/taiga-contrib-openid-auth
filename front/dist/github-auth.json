@@ -4,6 +4,6 @@
     "description": "Authenticate with GitHub accounts.",
     "type": "auth",
     "module": "taigaContrib.githubAuth",
-    "template": "plugin/github-auth",
+    "template": "/plugins/github-auth/github-auth.html",
     "js": "/plugins/github-auth/github-auth.js"
 }
