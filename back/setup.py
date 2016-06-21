@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
+import versiontools_support
 from setuptools import setup, find_packages
 
 setup(
@@ -18,7 +18,7 @@ setup(
     packages = find_packages(),
     install_requires=[],
     setup_requires = [
-        'versiontools >= 1.8',
+        'versiontools >= 1.9',
     ],
     classifiers = [
         "Programming Language :: Python",
