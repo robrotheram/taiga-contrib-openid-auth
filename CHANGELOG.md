@@ -1,6 +1,10 @@
 # Changelog #
 
 
+## 3.1.0 (unreleased)
+- Compatible with Taiga 3.0.0
+
+
 ## 3.0.0 (2016-10-02)
 - Compatible with Taiga 3.0.0
 
