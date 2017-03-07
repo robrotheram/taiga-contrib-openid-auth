@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from settings.development import *
+from settings.testing import *
 
 SKIP_SOUTH_TESTS = True
 SOUTH_TESTS_MIGRATE = False
@@ -27,11 +27,4 @@ EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 INSTALLED_APPS = INSTALLED_APPS + [
     "taiga_contrib_github_auth",
 ]
-INSTALLED_APPS = set(INSTALLED_APPS) - set(["taiga.hooks.github", "taiga.hooks.gitlab", "taiga.hooks.bitbucket"])
-
-REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
-    "anon": None,
-    "user": None,
-    "import-mode": None,
-    "import-dump-mode": None,
-}
+INSTALLED_APPS = list(set(INSTALLED_APPS) - set(["taiga.hooks.github", "taiga.hooks.gitlab", "taiga.hooks.bitbucket"]))

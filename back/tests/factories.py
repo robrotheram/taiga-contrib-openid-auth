@@ -53,10 +53,15 @@ class ProjectTemplateFactory(Factory):
     points = []
     task_statuses = []
     issue_statuses = []
+    epic_statuses = []
     issue_types = []
     priorities = []
     severities = []
     roles = []
+    us_custom_attributes = []
+    task_custom_attributes = []
+    issue_custom_attributes = []
+    epic_custom_attributes = []
     default_owner_role = "tester"
 
 
