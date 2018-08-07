@@ -1,10 +1,16 @@
-Taiga contrib github auth
+Taiga contrib Openid auth
 =========================
 
 [![Kaleidos Project](http://kaleidos.net/static/img/badge.png)](https://github.com/kaleidos "Kaleidos Project")
 [![Managed with Taiga.io](https://img.shields.io/badge/managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/taiga/ "Managed with Taiga.io")
 
-The Taiga plugin for github authentication.
+Openid / Keycloak authentication plugin . Heavily based off the github one
+
+#####warning:  extremely experimental built over 2 days to play around with tagia on my network with a keycloak idenity server. 
+##### Production install will probably not work
+
+
+
 
 Installation
 ------------
@@ -12,41 +18,44 @@ Installation
 
 #### Taiga Back
 
-In your Taiga back python virtualenv install the pip package `taiga-contrib-github-auth` with:
+In your Taiga back python virtualenv install the pip package `taiga-contrib-openid-auth` with:
 
 ```bash
-  pip install taiga-contrib-github-auth
+  pip install taiga-contrib-openid-auth
 ```
 
 Modify your `settings/local.py` and include the line:
 
 ```python
-  INSTALLED_APPS += ["taiga_contrib_github_auth"]
+  INSTALLED_APPS += ["taiga_contrib_openid_auth"]
 
-  # Get these from https://github.com/settings/developers
-  GITHUB_API_CLIENT_ID = "YOUR-GITHUB-CLIENT-ID"
-  GITHUB_API_CLIENT_SECRET = "YOUR-GITHUB-CLIENT-SECRET"
+OPENID_USER_URL = "open-id-url/auth/realms/{relem}/protocol/openid-connect/userinfo"
+OPENID_TOKEN_URL = "open-id-url/auth/realms/{relem}/protocol/openid-connect/token"
+OPENID_CLIENT_ID = 
+OPENID_CLIENT_SECRET =
+
 ```
 
 #### Taiga Front
 
-Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-github-auth` compiled code (you need subversion in your system):
+Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-openid-auth` compiled code (you need subversion in your system):
 
 ```bash
   cd dist/
   mkdir -p plugins
   cd plugins
-  svn export "https://github.com/taigaio/taiga-contrib-github-auth/tags/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist"  "github-auth"
+  svn export "https://github.com/taigaio/taiga-contrib-openid-auth/tags/$(pip show taiga-contrib-openid-auth | awk '/^Version: /{print $2}')/front/dist"  "openid-auth"
 ```
 
-Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/openid-auth/openid-auth.json"`:
 
 ```json
 ...
-    "gitHubClientId": "YOUR-GITHUB-CLIENT-ID",
+    "openidAuth" : "open-id-url/auth/realms/{relem}/protocol/openid-connect/auth",
+    "openidName" : "keycloack" ] #optional paramater for the name on login button defaults to "openid-connect"
     "contribPlugins": [
         (...)
-        "/plugins/github-auth/github-auth.json"
+        openid-auth.json
     ]
 ...
 ```
@@ -58,7 +67,7 @@ Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugi
 Clone the repo and
 
 ```bash
-  cd taiga-contrib-github-auth/back
+  cd taiga-contrib-openid-auth/back
   workon taiga
   pip install -e .
 ```
@@ -66,11 +75,12 @@ Clone the repo and
 Modify `taiga-back/settings/local.py` and include the line:
 
 ```python
-  INSTALLED_APPS += ["taiga_contrib_github_auth"]
+  INSTALLED_APPS += ["taiga_contrib_openid_auth"]
 
-  # Get these from https://github.com/settings/developers
-  GITHUB_API_CLIENT_ID = "YOUR-GITHUB-CLIENT-ID"
-  GITHUB_API_CLIENT_SECRET = "YOUR-GITHUB-CLIENT-SECRET"
+OPENID_USER_URL = "open-id-url/auth/realms/{relem}/protocol/openid-connect/userinfo"
+OPENID_TOKEN_URL = "open-id-url/auth/realms/{relem}/protocol/openid-connect/token"
+OPENID_CLIENT_ID = 
+OPENID_CLIENT_SECRET =
 ```
 
 #### Taiga Front
@@ -81,22 +91,23 @@ After clone the repo link `dist` in `taiga-front` plugins directory:
   cd taiga-front/dist
   mkdir -p plugins
   cd plugins
-  ln -s ../../../taiga-contrib-github-auth/dist github-auth
+  ln -s ../../../taiga-contrib-openid-auth/dist openid-auth
 ```
 
-Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/openid-auth/github-auth.json"`:
 
 ```json
 ...
-    "gitHubClientId": "YOUR-GITHUB-CLIENT-ID",
+    "openidAuth" : "open-id-url/auth/realms/{relem}/protocol/openid-connect/auth",
+    "openidName" : "keycloack" ] #optional paramater for the name on login button defaults to "openid-connect"
     "contribPlugins": [
         (...)
-        "/plugins/github-auth/github-auth.json"
+        "/plugins/github-auth/openid-auth.json"
     ]
 ...
 ```
 
-In the plugin source dir `taiga-contrib-github-auth/front` run
+In the plugin source dir `taiga-contrib-openid-auth/front` run
 
 ```bash
 npm install

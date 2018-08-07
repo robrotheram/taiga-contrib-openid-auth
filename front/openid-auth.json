@@ -1,0 +1,9 @@
+{
+    "name": "OpenId Auth",
+    "slug": "openid-auth",
+    "description": "Authenticate with openid accounts.",
+    "type": "auth",
+    "module": "taigaContrib.openidAuth",
+    "template": "/plugins/openid-auth/openid-auth.html",
+    "js": "/plugins/openid-auth/openid-auth.js"
+}

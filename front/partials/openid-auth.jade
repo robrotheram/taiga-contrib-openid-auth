@@ -1,3 +1,5 @@
+- var siteTitle = "My Cool Website";
+
 //-
     Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
     Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
@@ -23,5 +25,5 @@
 
 div(tg-github-login-button)
     a.button.button-auth(href="", title="Enter with your github account")
-        img(src="/plugins/github-auth/images/github-logo.png", alt="")
-        span Sign in with Github
+        img(src="/plugins/github-auth/images/openid.png", alt="" width="19px" height="16px")
+        span Sign in with {{openid_name}}

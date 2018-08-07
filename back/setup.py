@@ -5,14 +5,13 @@ import versiontools_support
 from setuptools import setup, find_packages
 
 setup(
-    name = 'taiga-contrib-github-auth',
-    version = ":versiontools:taiga_contrib_github_auth:",
-    description = "The Taiga plugin for github authentication",
+    name = 'taiga-contrib-openid-auth',
+    version = ":versiontools:taiga_contrib_openid_auth:",
+    description = "The Taiga plugin for openid authentication",
     long_description = "",
-    keywords = 'taiga, github, auth, plugin',
-    author = 'Jesús Espino García',
-    author_email = 'jesus.espino@kaleidos.net',
-    url = 'https://github.com/taigaio/taiga-contrib-github-auth',
+    keywords = 'taiga, openid, auth, plugin',
+    author = 'Robert Fletcher',
+    url = 'https://github.com/robrotheran/taiga-contrib-openid-auth',
     license = 'AGPL',
     include_package_data = True,
     packages = find_packages(),

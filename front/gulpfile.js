@@ -10,7 +10,7 @@ var paths = {
 };
 
 gulp.task('copy-config', function() {
-    return gulp.src('github-auth.json')
+    return gulp.src('openid-auth.json')
         .pipe(gulp.dest(paths.dist));
 });
 
@@ -26,7 +26,7 @@ gulp.task('compile', function() {
         .pipe($.jade({pretty: true}))
         .pipe($.angularTemplatecache({
             transformUrl: function(url) {
-                return '/plugins/github-auth/' + url;
+                return '/plugins/openid-auth/' + url;
             }
         }))
         .pipe($.remember('jade'));
@@ -38,7 +38,7 @@ gulp.task('compile', function() {
         .pipe($.remember('coffee'));
 
     return merge(jade, coffee)
-        .pipe($.concat('github-auth.js'))
+        .pipe($.concat('openid-auth.js'))
         .pipe($.uglify({mangle:false, preserveComments: false}))
         .pipe(gulp.dest(paths.dist));
 });

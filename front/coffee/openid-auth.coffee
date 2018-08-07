@@ -22,7 +22,7 @@
 # File: github-auth.coffee
 ###
 
-AUTH_URL = "https://github.com/login/oauth/authorize"
+
 
 GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $confirm,
                               $auth, $navUrls, $loader) ->
@@ -35,8 +35,8 @@ GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $co
     #   - ...
 
     link = ($scope, $el, $attrs) ->
-        clientId = $config.get("gitHubClientId", null)
-
+        AUTH_URL = $config.get("openidAuth", null)
+        $scope.openid_name = $config.get("openidName", "openid-connect")
         loginOnSuccess = (response) ->
             if $params.next and $params.next != $navUrls.resolve("login")
                 nextUrl = $params.next
@@ -51,6 +51,7 @@ GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $co
             $location.search("code", null)
             $location.path(nextUrl)
 
+        redirectURL = () -> $location.absUrl().split('?')[0]
         loginOnError = (response) ->
             $location.search("state", null)
             $location.search("code", null)
@@ -60,25 +61,27 @@ GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $co
                 $confirm.notify("light-error", response.data._error_message )
             else
                 $confirm.notify("light-error", "Our Oompa Loompas have not been able to get you
-                                                credentials from GitHub.")  #TODO: i18n
+                                                credentials from Openid.")  #TODO: i18n
 
-        loginWithGitHubAccount = ->
+        loginWithOpenIDAccount = ->
             type = $params.state
             code = $params.code
             token = $params.token
-
-            return if not (type == "github" and code)
+            console.log(type, code, $params)
+            return if not (code)
             $loader.start(true)
 
-            data = {code: code, token: token}
-            $auth.login(data, type).then(loginOnSuccess, loginOnError)
+            data = {code: code, url:redirectURL()}
+            $auth.login(data, "openid").then(loginOnSuccess, loginOnError)
 
-        loginWithGitHubAccount()
+        loginWithOpenIDAccount()
+
 
         $el.on "click", ".button-auth", (event) ->
-            redirectToUri = $location.absUrl()
-            url = "#{AUTH_URL}?client_id=#{clientId}&redirect_uri=#{redirectToUri}&state=github&scope=user:email"
-            $window.location.href = url
+            console.log(redirectURL());
+            redirectToUri = redirectURL();
+            url = "#{AUTH_URL}?redirect_uri=#{redirectToUri}&client_id=taiga&response_type=code"
+            window.location.href = url
 
         $scope.$on "$destroy", ->
             $el.off()
@@ -89,7 +92,7 @@ GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $co
         template: ""
     }
 
-module = angular.module('taigaContrib.githubAuth', [])
+module = angular.module('taigaContrib.openidAuth', [])
 module.directive("tgGithubLoginButton", ["$window", '$routeParams', "$tgLocation", "$tgConfig", "$tgEvents",
                                          "$tgConfirm", "$tgAuth", "$tgNavUrls", "tgLoader",
                                          GithubLoginButtonDirective])

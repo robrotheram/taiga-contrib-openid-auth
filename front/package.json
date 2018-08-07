@@ -1,19 +1,19 @@
 {
-  "name": "taiga-contrib-github-auth",
+  "name": "taiga-contrib-openid-auth",
   "version": "3.1.0",
-  "description": "Taiga contrib plugin for github authentication",
+  "description": "Taiga contrib plugin for openid authentication",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/taigaio/taiga-contrib-github-auth"
+    "url": "https://github.com/robrotheran/taiga-contrib-openid-auth"
   },
   "keywords": [
-    "github",
+    "openid",
     "taiga",
     "authentication",
     "plugin"
   ],
-  "author": "Jesús Espino <jesus.espino@kaleidos.net>",
+  "author": "Robert Fletcher",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/taigaio/taiga-contrib-github-auth/issues"
