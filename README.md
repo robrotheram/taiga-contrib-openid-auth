@@ -29,8 +29,8 @@ Modify your `settings/local.py` and include the line:
 ```python
   INSTALLED_APPS += ["taiga_contrib_openid_auth"]
 
-OPENID_USER_URL = "open-id-url/auth/realms/{relm}/protocol/openid-connect/userinfo"
-OPENID_TOKEN_URL = "open-id-url/auth/realms/{relm}/protocol/openid-connect/token"
+OPENID_USER_URL = "open-id-url/auth/realms/{realm}/protocol/openid-connect/userinfo"
+OPENID_TOKEN_URL = "open-id-url/auth/realms/{realm}/protocol/openid-connect/token"
 OPENID_CLIENT_ID = 
 OPENID_CLIENT_SECRET =
 
@@ -51,7 +51,7 @@ Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugi
 
 ```json
 ...
-    "openidAuth" : "open-id-url/auth/realms/{relm}/protocol/openid-connect/auth",
+    "openidAuth" : "open-id-url/auth/realms/{realm}/protocol/openid-connect/auth",
     "openidName" : "keycloack" ] #optional paramater for the name on login button defaults to "openid-connect"
     "contribPlugins": [
         (...)
@@ -77,8 +77,8 @@ Modify `taiga-back/settings/local.py` and include the line:
 ```python
   INSTALLED_APPS += ["taiga_contrib_openid_auth"]
 
-OPENID_USER_URL = "open-id-url/auth/realms/{relm}/protocol/openid-connect/userinfo"
-OPENID_TOKEN_URL = "open-id-url/auth/realms/{relm}/protocol/openid-connect/token"
+OPENID_USER_URL = "open-id-url/auth/realms/{realm}/protocol/openid-connect/userinfo"
+OPENID_TOKEN_URL = "open-id-url/auth/realms/{realm}/protocol/openid-connect/token"
 OPENID_CLIENT_ID = 
 OPENID_CLIENT_SECRET =
 ```
@@ -98,7 +98,7 @@ Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugi
 
 ```json
 ...
-    "openidAuth" : "open-id-url/auth/realms/{relm}/protocol/openid-connect/auth",
+    "openidAuth" : "open-id-url/auth/realms/{realm}/protocol/openid-connect/auth",
     "openidName" : "keycloack" ] #optional paramater for the name on login button defaults to "openid-connect"
     "contribPlugins": [
         (...)
