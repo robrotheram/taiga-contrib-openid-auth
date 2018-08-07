@@ -6,7 +6,7 @@ Taiga contrib Openid auth
 
 Openid / Keycloak authentication plugin . Heavily based off the github one
 
-#####warning:  extremely experimental built over 2 days to play around with tagia on my network with a keycloak idenity server. 
+##### warning:  extremely experimental built over 2 days to play around with tagia on my network with a keycloak idenity server. 
 ##### Production install will probably not work
 
 
