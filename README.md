@@ -102,7 +102,7 @@ Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugi
     "openidName" : "keycloack" ] #optional paramater for the name on login button defaults to "openid-connect"
     "contribPlugins": [
         (...)
-        "/plugins/github-auth/openid-auth.json"
+        "/plugins/openid-auth/openid-auth.json"
     ]
 ...
 ```
