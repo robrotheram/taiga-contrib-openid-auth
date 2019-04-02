@@ -19,80 +19,81 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# File: github-auth.coffee
+# File: openid-auth.coffee
 ###
 
+OpenIDLoginButtonDirective = ($window, $params, $location, $config, $events, $confirm,
+	$auth, $navUrls, $loader) ->
+	# Login or registar a user with his/her openid account.
+	#
+	# Example:
+	#	 tg-openid-login-button()
+	#
+	# Requirements:
+	#   - ...
+
+	link = ($scope, $el, $attrs) ->
+		AUTH_URL = $config.get("openidAuth", null)
+		$scope.openid_name = $config.get("openidName", "openid-connect")
+		loginOnSuccess = (response) ->
+			if $params.next and $params.next != $navUrls.resolve("login")
+				nextUrl = $params.next
+			else
+				nextUrl = $navUrls.resolve("home")
+
+			$events.setupConnection()
+
+			$location.search("next", null)
+			$location.search("token", null)
+			$location.search("state", null)
+			$location.search("code", null)
+			$location.path(nextUrl)
+
+		redirectURL = () -> $location.absUrl().split('?')[0]
+		loginOnError = (response) ->
+			$location.search("state", null)
+			$location.search("code", null)
+			$loader.pageLoaded()
+
+			if response.data._error_message
+				$confirm.notify("light-error", response.data._error_message )
+			else
+				$confirm.notify("light-error", "Our Oompa Loompas have not been able to get your credentials from OpenID.") #TODO: i18n
+
+		loginWithOpenIDAccount = ->
+			type = $params.state
+			code = $params.code
+			token = $params.token
+			accessToken = $params.access_token
+			return if not (code) && not(accessToken)
+			$loader.start(true)
+
+			if code
+				data = {code: code, url:redirectURL()}
+				$auth.login(data, "openid").then(loginOnSuccess, loginOnError)
+			else
+				data = {access_token: accessToken, url:redirectURL()}
+				$auth.login(data, "openid").then(loginOnSuccess, loginOnError)
+
+		loginWithOpenIDAccount()
 
 
-GithubLoginButtonDirective = ($window, $params, $location, $config, $events, $confirm,
-                              $auth, $navUrls, $loader) ->
-    # Login or registar a user with his/her github account.
-    #
-    # Example:
-    #     tg-github-login-button()
-    #
-    # Requirements:
-    #   - ...
+		$el.on "click", ".button-auth", (event) ->
+			console.log(redirectURL());
+			redirectToUri = redirectURL();
+			url = "#{AUTH_URL}?redirect_uri=#{redirectToUri}&client_id=taiga&response_type=code"
+			window.location.href = url
 
-    link = ($scope, $el, $attrs) ->
-        AUTH_URL = $config.get("openidAuth", null)
-        $scope.openid_name = $config.get("openidName", "openid-connect")
-        loginOnSuccess = (response) ->
-            if $params.next and $params.next != $navUrls.resolve("login")
-                nextUrl = $params.next
-            else
-                nextUrl = $navUrls.resolve("home")
+		$scope.$on "$destroy", ->
+			$el.off()
 
-            $events.setupConnection()
-
-            $location.search("next", null)
-            $location.search("token", null)
-            $location.search("state", null)
-            $location.search("code", null)
-            $location.path(nextUrl)
-
-        redirectURL = () -> $location.absUrl().split('?')[0]
-        loginOnError = (response) ->
-            $location.search("state", null)
-            $location.search("code", null)
-            $loader.pageLoaded()
-
-            if response.data._error_message
-                $confirm.notify("light-error", response.data._error_message )
-            else
-                $confirm.notify("light-error", "Our Oompa Loompas have not been able to get you
-                                                credentials from Openid.")  #TODO: i18n
-
-        loginWithOpenIDAccount = ->
-            type = $params.state
-            code = $params.code
-            token = $params.token
-            console.log(type, code, $params)
-            return if not (code)
-            $loader.start(true)
-
-            data = {code: code, url:redirectURL()}
-            $auth.login(data, "openid").then(loginOnSuccess, loginOnError)
-
-        loginWithOpenIDAccount()
-
-
-        $el.on "click", ".button-auth", (event) ->
-            console.log(redirectURL());
-            redirectToUri = redirectURL();
-            url = "#{AUTH_URL}?redirect_uri=#{redirectToUri}&client_id=taiga&response_type=code"
-            window.location.href = url
-
-        $scope.$on "$destroy", ->
-            $el.off()
-
-    return {
-        link: link
-        restrict: "EA"
-        template: ""
-    }
+	return {
+		link: link
+		restrict: "EA"
+		template: ""
+	}
 
 module = angular.module('taigaContrib.openidAuth', [])
-module.directive("tgGithubLoginButton", ["$window", '$routeParams', "$tgLocation", "$tgConfig", "$tgEvents",
-                                         "$tgConfirm", "$tgAuth", "$tgNavUrls", "tgLoader",
-                                         GithubLoginButtonDirective])
+module.directive("tgOpenidLoginButton", ["$window", '$routeParams', "$tgLocation", "$tgConfig", "$tgEvents",
+	"$tgConfirm", "$tgAuth", "$tgNavUrls", "tgLoader",
+	OpenIDLoginButtonDirective])

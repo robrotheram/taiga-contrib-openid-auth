@@ -1,5 +1,3 @@
-- var siteTitle = "My Cool Website";
-
 //-
     Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
     Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
@@ -21,9 +19,9 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-    File: github-auth.jade
+    File: openid-auth.jade
 
-div(tg-github-login-button)
-    a.button.button-auth(href="", title="Enter with your github account")
-        img(src="/plugins/github-auth/images/openid.png", alt="" width="19px" height="16px")
+div(tg-openid-login-button)
+    a.button.button-auth(href="", title="Enter with your OpenID account")
+        img(src="/plugins/openid-auth/images/openid.png", alt="" width="19px" height="16px")
         span Sign in with {{openid_name}}
