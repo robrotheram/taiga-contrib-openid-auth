@@ -67,8 +67,6 @@ def _get(url:str, headers:dict) -> dict:
     Make a GET call.
     """
     response = requests.get(url, headers=headers)
-    print(response.json())
-
     data = response.json()
     if response.status_code != 200:
         raise OpenIDApiError({"status_code": response.status_code,
@@ -80,9 +78,7 @@ def _post(url:str, params:dict, headers:dict) -> dict:
     """
     Make a POST call.
     """
-    print("Req", params)
     response = requests.post(url, data=params, headers=headers)
-    print("RESPONSE", response.json())
     data = response.json()
     if response.status_code != 200 or "error" in data:
         raise OpenIDApiError({"status_code": response.status_code,
@@ -94,26 +90,27 @@ def _post(url:str, params:dict, headers:dict) -> dict:
 ## Simple calls
 ######################################################
 
-def login(access_code:str, redirect_uri:str, client_id:str=CLIENT_ID, client_secret:str=CLIENT_SECRET, headers:dict=HEADERS):
-          
+def login(access_code:str, token:str, redirect_uri:str, client_id:str=CLIENT_ID, client_secret:str=CLIENT_SECRET, headers:dict=HEADERS):
     """
     Get access_token fron an user authorized code, the client id and the client secret key.
     (See http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint).
     """
     if not CLIENT_ID or not CLIENT_SECRET:
-        raise OpenIDApiError({"error_message": _("Login with openid-connect account is disabled. Contact "
-                                                     "with the sysadmins. Maybe they're snoozing in a "
-                                                     "secret hideout of the data center.")})
+        raise OpenIDApiError({"error_message": _(
+            "The OpenID Connect plugin isn't properly configured. Please contact your sysadmin.")})
 
-    url = TOKEN_URL
-    params={"grant_type": "authorization_code",
+    if token == "" or token == None:
+        url = TOKEN_URL
+        params={"grant_type": "authorization_code",
             "code": access_code,
             "client_id": CLIENT_ID,
             "client_secret": CLIENT_SECRET,
             "redirect_uri": redirect_uri
-            }
-    data = _post(url, params=params, headers=headers)
-    return AuthInfo(access_token=data.get("access_token", None))
+        }
+        data = _post(url, params=params, headers=headers)
+        return AuthInfo(access_token=data.get("access_token", None))
+    else:
+        return AuthInfo(access_token=token)
 
 
 def get_user_profile(headers:dict=HEADERS):
@@ -121,28 +118,26 @@ def get_user_profile(headers:dict=HEADERS):
     Get authenticated user info.
     (See openid.net/specs/openid-connect-core-1_0.html#UserInfo).
     """
-    
+
     url = USER_URL
     data = _get(url, headers=headers)
-    print (data)
     return User(id=data.get("sub", None),
-                username=data.get("preferred_username", None),
-                full_name=data.get("name", None),
-                email=data.get("email", None),
-                
-            )       
+        username=data.get("preferred_username", None),
+        full_name=data.get("name", None),
+        email=data.get("email", None),
+    )
 
 ######################################################
 ## Convined calls
 ######################################################
 
-def me(access_code:str, redirect_uri:str) -> tuple:
+
+def me(access_code:str, token:str, redirect_uri:str) -> tuple:
     """
     Connect to a openid account and get all personal info (profile and the primary email).
     """
-    auth_info = login(access_code, redirect_uri)
+    auth_info = login(access_code, token, redirect_uri)
     headers = HEADERS.copy()
     headers["Authorization"] = "Bearer {}".format(auth_info.access_token)
     user = get_user_profile(headers=headers)
     return user
-

@@ -26,7 +26,7 @@ gulp.task('compile', function() {
         .pipe($.jade({pretty: true}))
         .pipe($.angularTemplatecache({
             transformUrl: function(url) {
-                return '/plugins/openid-auth/' + url;
+                return '/plugins/openid-auth' + url;
             }
         }))
         .pipe($.remember('jade'));
@@ -47,6 +47,6 @@ gulp.task('watch', function() {
     gulp.watch([paths.jade, paths.coffee, paths.images], ['copy-images', 'compile']);
 });
 
-gulp.task('default', ['copy-config', 'copy-images', 'compile', 'watch']);
+gulp.task('default', gulp.series('copy-config', 'copy-images', 'compile', 'watch'));
 
-gulp.task('build', ['copy-config', 'copy-images', 'compile', ]);
+gulp.task('build', gulp.series('copy-config', 'copy-images', 'compile'));
