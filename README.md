@@ -41,6 +41,7 @@ Add the following values to `{path-to-taiga-frontend}/conf.json`:
 {
   "openidAuth" : "https://{url-to-keycloak}/auth/realms/{realm}/protocol/openid-connect/auth",
   "openidName" : "{name-for-login-button}",
+  "openidClientId": "{client_id}",
   "contribPlugins": [
       "/plugins/openid-auth/openid-auth.json"
   ]
