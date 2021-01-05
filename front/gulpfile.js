@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var merge = require('merge-stream');
+var terser = require('gulp-terser');
 
 var paths = {
     jade: 'partials/*.jade',
@@ -23,7 +24,7 @@ gulp.task('compile', function() {
     var jade = gulp.src(paths.jade)
         .pipe($.plumber())
         .pipe($.cached('jade'))
-        .pipe($.jade({pretty: true}))
+        .pipe($.pug({pretty: true}))
         .pipe($.angularTemplatecache({
             transformUrl: function(url) {
                 return '/plugins/openid-auth' + url;
@@ -39,12 +40,12 @@ gulp.task('compile', function() {
 
     return merge(jade, coffee)
         .pipe($.concat('openid-auth.js'))
-        .pipe($.uglify({mangle:false, preserveComments: false}))
+        .pipe($.terser({mangle:false, output:{comments: "some"}}))
         .pipe(gulp.dest(paths.dist));
 });
 
 gulp.task('watch', function() {
-    gulp.watch([paths.jade, paths.coffee, paths.images], ['copy-images', 'compile']);
+    gulp.watch([paths.jade, paths.coffee, paths.images], gulp.series('copy-images', 'compile'));
 });
 
 gulp.task('default', gulp.series('copy-config', 'copy-images', 'compile', 'watch'));
