@@ -44,9 +44,9 @@ gulp.task('compile', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch([paths.jade, paths.coffee, paths.images], gulp.series('copy-images', 'compile'));
+    gulp.watch([paths.jade, paths.coffee, paths.images], ['copy-images', 'compile']);
 });
 
-gulp.task('default', gulp.series('copy-config', 'copy-images', 'compile', 'watch'));
+gulp.task('default', ['copy-config', 'copy-images', 'compile', 'watch']);
 
-gulp.task('build', gulp.series('copy-config', 'copy-images', 'compile'));
+gulp.task('build', ['copy-config', 'copy-images', 'compile', ]);
