@@ -1,6 +1,6 @@
 {
   "name": "taiga-contrib-openid-auth",
-  "version": "0.0.2",
+  "version": "6.0.0",
   "description": "Taiga contrib plugin for openid authentication",
   "main": "index.js",
   "repository": {
@@ -13,28 +13,27 @@
     "authentication",
     "plugin"
   ],
-  "author": "Robert Fletcher",
+  "author": "Cristian Lazaro",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/taigaio/taiga-contrib-github-auth/issues"
   },
   "homepage": "https://github.com/taigaio/taiga-contrib-github-auth",
   "dependencies": {
-    "coffee-script": "^1.8.0"
+    "coffee-script": "^1.8.0",
+    "jade": "^1.9.1"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-angular-templatecache": "^3.0.0",
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.8.0",
     "gulp-cached": "^1.1.0",
-    "gulp-cli": "^2.3.0",
-    "gulp-coffee": "^3.0.3",
+    "gulp-coffee": "^2.3.1",
     "gulp-concat": "^2.6.0",
     "gulp-jade": "^1.1.0",
-    "gulp-load-plugins": "^2.0.6",
+    "gulp-load-plugins": "^1.2.0",
     "gulp-plumber": "^1.0.1",
-    "gulp-pug": "^4.0.1",
-    "gulp-remember": "^1.0.1",
-    "gulp-terser": "^2.0.0",
+    "gulp-remember": "^0.3.0",
+    "gulp-uglify": "^1.5.2",
     "merge-stream": "^1.0.0"
   }
 }

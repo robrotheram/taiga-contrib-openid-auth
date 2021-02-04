@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var merge = require('merge-stream');
-var terser = require('gulp-terser');
 
 var paths = {
     jade: 'partials/*.jade',
