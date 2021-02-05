@@ -23,7 +23,7 @@ gulp.task('compile', function() {
     var jade = gulp.src(paths.jade)
         .pipe($.plumber())
         .pipe($.cached('jade'))
-        .pipe($.pug({pretty: true}))
+        .pipe($.jade({pretty: true}))
         .pipe($.angularTemplatecache({
             transformUrl: function(url) {
                 return '/plugins/openid-auth' + url;
@@ -39,7 +39,7 @@ gulp.task('compile', function() {
 
     return merge(jade, coffee)
         .pipe($.concat('openid-auth.js'))
-        .pipe($.terser({mangle:false, output:{comments: "some"}}))
+        .pipe($.uglify({mangle:false, output:{comments: "some"}}))
         .pipe(gulp.dest(paths.dist));
 });
 
