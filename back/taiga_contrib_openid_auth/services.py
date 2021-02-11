@@ -48,22 +48,14 @@ def openid_register(username: str, email: str, full_name: str, openid_id: int, t
         auth_data = auth_data_model.objects.get(key="openid", value=openid_id)
         user = auth_data.user
     except auth_data_model.DoesNotExist:
-        raise exc.IntegrityError(
-            _("This user doesn't exist."))
-        # try:
-        #     # Is a user with the same email as the openid user?
-        #     user = user_model.objects.get(email=email)
-        #     auth_data_model.objects.create(user=user, key="openid", value=openid_id, extra={})
-        # except user_model.DoesNotExist:
-        #     # Create a new user
-        #     username_unique = slugify_uniquely(username, user_model, slugfield="username")
-        #     user = user_model.objects.create(email=email,
-        #                                      username=username_unique,
-        #                                      full_name=full_name)
-        #     auth_data_model.objects.create(user=user, key="openid", value=openid_id, extra={})
-
-        #     send_register_email(user)
-        #     user_registered_signal.send(sender=user.__class__, user=user)
+        try:
+            # Is a user with the same email as the openid user?
+            user = user_model.objects.get(email=email)
+            auth_data_model.objects.create(
+                user=user, key="openid", value=openid_id, extra={})
+        except user_model.DoesNotExist:
+            raise exc.IntegrityError(
+                _("This user doesn't exists. Please contact with an admin of this Taiga."))
 
     if token:
         membership = get_membership_by_token(token)
