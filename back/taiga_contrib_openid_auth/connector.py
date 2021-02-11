@@ -79,7 +79,7 @@ def _post(url: str, params: dict, headers: dict) -> dict:
     """
     Make a POST call.
     """
-    response = requests.post(url, data=params, headers=headers, verify=False)
+    response = requests.post(url, data=params, headers=headers)
     data = response.json()
     if response.status_code != 200 or "error" in data:
         raise OpenIDApiError({"status_code": response.status_code,
