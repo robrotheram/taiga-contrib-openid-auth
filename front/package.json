@@ -16,7 +16,7 @@
     "authentication",
     "plugin"
   ],
-  "author": "Cristian Lazaro",
+  "author": "Robrotheram",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/taigaio/taiga-contrib-github-auth/issues"
