@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: robrotheram/gogoallery_ci:1.15
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      # specify any bash command here prefixed with `run: `
+      - run: make build
+      - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run: make publish

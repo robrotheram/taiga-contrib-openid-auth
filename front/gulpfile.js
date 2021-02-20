@@ -49,4 +49,4 @@ gulp.task('watch', function() {
 
 gulp.task('default', gulp.series('copy-config', 'copy-images', 'compile', 'watch'));
 
-gulp.task('build', gulp.series('copy-config', 'copy-images', 'compile'));
+gulp.task('build', gulp.series('copy-config', 'copy-images', 'compile', ));

@@ -23,12 +23,14 @@ from django.apps import apps
 
 from taiga.base.utils.slug import slugify_uniquely
 from taiga.base import exceptions as exc
+from django.conf import settings
 from taiga.auth.services import send_register_email
 from taiga.auth.services import make_auth_response_data, get_membership_by_token
 from taiga.auth.signals import user_registered as user_registered_signal
 
 from . import connector
 
+PUBLIC_REGISTER_ENABLED = getattr(settings, "PUBLIC_REGISTER_ENABLED", False)
 
 @tx.atomic
 def openid_register(username:str, email:str, full_name:str, openid_id:int, token:str=None):
@@ -53,15 +55,20 @@ def openid_register(username:str, email:str, full_name:str, openid_id:int, token
             user = user_model.objects.get(email=email)
             auth_data_model.objects.create(user=user, key="openid", value=openid_id, extra={})
         except user_model.DoesNotExist:
-            # Create a new user
-            username_unique = slugify_uniquely(username, user_model, slugfield="username")
-            user = user_model.objects.create(email=email,
-                                             username=username_unique,
-                                             full_name=full_name)
-            auth_data_model.objects.create(user=user, key="openid", value=openid_id, extra={})
+            if PUBLIC_REGISTER_ENABLED:
+                # Create a new user
+                username_unique = slugify_uniquely(username, user_model, slugfield="username")
+                user = user_model.objects.create(email=email,
+                                                username=username_unique,
+                                                full_name=full_name)
+                auth_data_model.objects.create(user=user, key="openid", value=openid_id, extra={})
 
-            send_register_email(user)
-            user_registered_signal.send(sender=user.__class__, user=user)
+                send_register_email(user)
+                user_registered_signal.send(sender=user.__class__, user=user)
+            else:
+                raise exc.IntegrityError(
+                _("Sorry, was unable to locate user and registrations have been disabled by the Administrator"))
+
 
     if token:
         membership = get_membership_by_token(token)

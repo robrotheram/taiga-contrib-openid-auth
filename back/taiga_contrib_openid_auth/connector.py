@@ -32,21 +32,24 @@ class OpenIDApiError(ConnectorBaseException):
 
 
 ######################################################
-## Data
+# Data
 ######################################################
 
 CLIENT_ID = getattr(settings, "OPENID_CLIENT_ID", None)
 CLIENT_SECRET = getattr(settings, "OPENID_CLIENT_SECRET", None)
 TOKEN_URL = getattr(settings, "OPENID_TOKEN_URL", None)
 USER_URL = getattr(settings, "OPENID_USER_URL", None)
-HEADERS = {"Accept": "application/json",}
+HEADERS = {"Accept": "application/json", }
+
+
 
 AuthInfo = namedtuple("AuthInfo", ["access_token"])
 User = namedtuple("User", ["id", "username", "full_name", "email"])
 
 ######################################################
-## utils
+# utils
 ######################################################
+
 
 def _build_url(*args, **kwargs) -> str:
     """
@@ -62,7 +65,7 @@ def _build_url(*args, **kwargs) -> str:
     return urljoin(API_URL, resource_url)
 
 
-def _get(url:str, headers:dict) -> dict:
+def _get(url: str, headers: dict) -> dict:
     """
     Make a GET call.
     """
@@ -70,11 +73,11 @@ def _get(url:str, headers:dict) -> dict:
     data = response.json()
     if response.status_code != 200:
         raise OpenIDApiError({"status_code": response.status_code,
-                                  "error": data.get("error", "")})
+                              "error": data.get("error", "")})
     return data
 
 
-def _post(url:str, params:dict, headers:dict) -> dict:
+def _post(url: str, params: dict, headers: dict) -> dict:
     """
     Make a POST call.
     """
@@ -82,15 +85,15 @@ def _post(url:str, params:dict, headers:dict) -> dict:
     data = response.json()
     if response.status_code != 200 or "error" in data:
         raise OpenIDApiError({"status_code": response.status_code,
-                                  "error": data.get("error", "")})
+                              "error": data.get("error", "")})
     return data
 
 
 ######################################################
-## Simple calls
+# Simple calls
 ######################################################
 
-def login(access_code:str, token:str, redirect_uri:str, client_id:str=CLIENT_ID, client_secret:str=CLIENT_SECRET, headers:dict=HEADERS):
+def login(access_code: str, token: str, redirect_uri: str, client_id: str = CLIENT_ID, client_secret: str = CLIENT_SECRET, headers: dict = HEADERS):
     """
     Get access_token fron an user authorized code, the client id and the client secret key.
     (See http://openid.net/specs/openid-connect-core-1_0.html#TokenEndpoint).
@@ -101,19 +104,19 @@ def login(access_code:str, token:str, redirect_uri:str, client_id:str=CLIENT_ID,
 
     if token == "" or token == None:
         url = TOKEN_URL
-        params={"grant_type": "authorization_code",
-            "code": access_code,
-            "client_id": CLIENT_ID,
-            "client_secret": CLIENT_SECRET,
-            "redirect_uri": redirect_uri
-        }
+        params = {"grant_type": "authorization_code",
+                  "code": access_code,
+                  "client_id": CLIENT_ID,
+                  "client_secret": CLIENT_SECRET,
+                  "redirect_uri": redirect_uri
+                  }
         data = _post(url, params=params, headers=headers)
         return AuthInfo(access_token=data.get("access_token", None))
     else:
         return AuthInfo(access_token=token)
 
 
-def get_user_profile(headers:dict=HEADERS):
+def get_user_profile(headers: dict = HEADERS):
     """
     Get authenticated user info.
     (See openid.net/specs/openid-connect-core-1_0.html#UserInfo).
@@ -122,17 +125,17 @@ def get_user_profile(headers:dict=HEADERS):
     url = USER_URL
     data = _get(url, headers=headers)
     return User(id=data.get("sub", None),
-        username=data.get("preferred_username", None),
-        full_name=data.get("name", None),
-        email=data.get("email", None),
-    )
+                username=data.get("preferred_username", None),
+                full_name=data.get("name", None),
+                email=data.get("email", None),
+                )
 
 ######################################################
-## Convined calls
+# Convined calls
 ######################################################
 
 
-def me(access_code:str, token:str, redirect_uri:str) -> tuple:
+def me(access_code: str, token: str, redirect_uri: str) -> tuple:
     """
     Connect to a openid account and get all personal info (profile and the primary email).
     """
