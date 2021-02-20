@@ -1,6 +1,6 @@
 {
   "name": "taiga-contrib-openid-auth",
-  "version": "0.0.2",
+  "version": "6.0.0",
   "description": "Taiga contrib plugin for openid authentication",
   "main": "index.js",
   "repository": {
@@ -13,7 +13,7 @@
     "authentication",
     "plugin"
   ],
-  "author": "Robert Fletcher",
+  "author": "Cristian Lazaro",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/taigaio/taiga-contrib-github-auth/issues"
@@ -24,7 +24,7 @@
     "jade": "^1.9.1"
   },
   "devDependencies": {
-    "gulp": "^4.0.0",
+    "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-cached": "^1.1.0",
     "gulp-coffee": "^2.3.1",
