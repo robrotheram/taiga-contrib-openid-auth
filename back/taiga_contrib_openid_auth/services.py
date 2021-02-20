@@ -67,7 +67,7 @@ def openid_register(username:str, email:str, full_name:str, openid_id:int, token
                 user_registered_signal.send(sender=user.__class__, user=user)
             else:
                 raise exc.IntegrityError(
-                _("This user doesn't exists. Please contact with an admin of this Taiga."))
+                _("Sorry, was unable to locate user and registrations have been disabled by the Administrator"))
 
 
     if token:
