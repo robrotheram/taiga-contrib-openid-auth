@@ -240,3 +240,11 @@ The make file contains the basic blocks to locally build the UI and docker conta
 ```
 make build
 ```
+
+# Contributions
+My thanks to all the people who have added to the plugin
+@cristianlazarop 
+@swedishborgie
+@baloo42 
+The whole taiga team who wrote the github plugin that this plugin is based off.
+
