@@ -35,11 +35,14 @@ class OpenIDApiError(ConnectorBaseException):
 # Data
 ######################################################
 
+PUBLIC_REGISTER_ENABLED = getattr(settings, "PUBLIC_REGISTER_ENABLED", False)
 CLIENT_ID = getattr(settings, "OPENID_CLIENT_ID", None)
 CLIENT_SECRET = getattr(settings, "OPENID_CLIENT_SECRET", None)
 TOKEN_URL = getattr(settings, "OPENID_TOKEN_URL", None)
 USER_URL = getattr(settings, "OPENID_USER_URL", None)
 HEADERS = {"Accept": "application/json", }
+
+
 
 AuthInfo = namedtuple("AuthInfo", ["access_token"])
 User = namedtuple("User", ["id", "username", "full_name", "email"])

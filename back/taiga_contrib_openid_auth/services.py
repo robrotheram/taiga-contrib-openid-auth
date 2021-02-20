@@ -31,7 +31,7 @@ from . import connector
 
 
 @tx.atomic
-def openid_register(username: str, email: str, full_name: str, openid_id: int, token: str = None):
+def openid_register(username:str, email:str, full_name:str, openid_id:int, token:str=None):
     """
     Register a new user from openid.
 
@@ -51,11 +51,22 @@ def openid_register(username: str, email: str, full_name: str, openid_id: int, t
         try:
             # Is a user with the same email as the openid user?
             user = user_model.objects.get(email=email)
-            auth_data_model.objects.create(
-                user=user, key="openid", value=openid_id, extra={})
+            auth_data_model.objects.create(user=user, key="openid", value=openid_id, extra={})
         except user_model.DoesNotExist:
-            raise exc.IntegrityError(
+            if PUBLIC_REGISTER_ENABLED:
+                # Create a new user
+                username_unique = slugify_uniquely(username, user_model, slugfield="username")
+                user = user_model.objects.create(email=email,
+                                                username=username_unique,
+                                                full_name=full_name)
+                auth_data_model.objects.create(user=user, key="openid", value=openid_id, extra={})
+
+                send_register_email(user)
+                user_registered_signal.send(sender=user.__class__, user=user)
+            else:
+                raise exc.IntegrityError(
                 _("This user doesn't exists. Please contact with an admin of this Taiga."))
+
 
     if token:
         membership = get_membership_by_token(token)
@@ -64,8 +75,7 @@ def openid_register(username: str, email: str, full_name: str, openid_id: int, t
             membership.user = user
             membership.save(update_fields=["user"])
         except IntegrityError:
-            raise exc.IntegrityError(
-                _("This user is already a member of the project."))
+            raise exc.IntegrityError(_("This user is already a member of the project."))
 
     return user
 
