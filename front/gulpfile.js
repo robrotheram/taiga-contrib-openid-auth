@@ -26,7 +26,7 @@ gulp.task('compile', function() {
         .pipe($.jade({pretty: true}))
         .pipe($.angularTemplatecache({
             transformUrl: function(url) {
-                return '/plugins/openid-auth/' + url;
+                return '/plugins/openid-auth' + url;
             }
         }))
         .pipe($.remember('jade'));
