@@ -3,6 +3,9 @@
   "version": "6.0.0",
   "description": "Taiga contrib plugin for openid authentication",
   "main": "index.js",
+  "scripts": {
+    "build": "gulp build"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/robrotheran/taiga-contrib-openid-auth"
@@ -24,7 +27,7 @@
     "jade": "^1.9.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.2",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-cached": "^1.1.0",
     "gulp-coffee": "^2.3.1",
