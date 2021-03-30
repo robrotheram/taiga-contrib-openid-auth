@@ -153,8 +153,10 @@ def get_user_profile(headers: dict = HEADERS):
                 email=data.get(EMAIL_FIELD, None),
                 )
     print("USER: ")
+    print(data.get("username", None) != None )
     print(USER_FIELD)
     print(data)
+
     print(user)
     return user
 
