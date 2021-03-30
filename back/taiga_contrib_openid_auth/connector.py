@@ -148,7 +148,7 @@ def get_user_profile(headers: dict = HEADERS):
         username = data.get("email", None)
     
     user =  User(id=data.get(ID_FIELD, None),
-                username=data.get(username, None),
+                username=username,
                 full_name=data.get(NAME_FIELD, None),
                 email=data.get(EMAIL_FIELD, None),
                 )
