@@ -150,6 +150,8 @@ def get_user_profile(headers: dict = HEADERS):
                 email=data.get(EMAIL_FIELD, None),
                 )
     print("USER: ")
+    print(USER_FIELD)
+    print(data)
     print(user)
     return user
 
