@@ -9,10 +9,12 @@ Compatible with Taiga 4.2.1, 5.x, 6
 
 ## Docker
 This plugin is compatible with the offical taiga docker images 😃
+
 https://github.com/taigaio/taiga-docker
 
-This project builds 2 imagaes based off the images provided by taiga. This should allow anyother customisations to continue to work 
-The following will show the changes needed to the default docker-compose file to install the openid plugin
+This project builds 2 images based off the images provided by taiga. This should allow anyother customisations to continue to work.
+
+The following will show the changes needed to the default docker-compose file to install the openid plugin.
 
 ### Config 
 The 2 images:
@@ -66,7 +68,7 @@ x-environment:
   # Enable OpenID to allow to register users if they do not exist. Set to false to disable all signups
   PUBLIC_REGISTER_ENABLED: "True"
 
-  #OpenID Settins
+  # OpenID settings
   ENABLE_OPENID: "True"
   OPENID_USER_URL : "https://{url-to-keycloak}/auth/realms/{realm}/protocol/openid-connect/userinfo"
   OPENID_TOKEN_URL : "https://{url-to-keycloak}/auth/realms/{realm}/protocol/openid-connect/token"
@@ -235,7 +237,8 @@ Add the following values to `{path-to-taiga-frontend}/conf.json`:
 ```
 
 # Building
-The make file contains the basic blocks to locally build the UI and docker containers
+
+The make file contains the basic blocks to locally build the UI and docker containers.
 
 ```
 make build
