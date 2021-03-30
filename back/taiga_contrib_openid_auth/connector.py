@@ -144,15 +144,14 @@ def get_user_profile(headers: dict = HEADERS):
     else if data.get("username", None) != None :
         username = data.get("username", None),
     
-        
-    
-
-
-    return User(id=data.get(ID_FIELD, None),
+    user =  User(id=data.get(ID_FIELD, None),
                 username=data.get(username, None),
                 full_name=data.get(NAME_FIELD, None),
                 email=data.get(EMAIL_FIELD, None),
                 )
+    print("USER: ")
+    print(user)
+    return user
 
 ######################################################
 # Convined calls
