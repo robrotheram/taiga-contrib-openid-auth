@@ -135,13 +135,13 @@ def get_user_profile(headers: dict = HEADERS):
     if data.get(USER_FIELD, None) != None :
         username = data.get(USER_FIELD, None)
 
-    else if data.get("preferred_username", None) != None :
+    elif data.get("preferred_username", None) != None :
         username = data.get("preferred_username", None) 
 
-    else if data.get("full_name", None) != None :
+    elif data.get("full_name", None) != None :
         username = data.get("full_name", None) 
 
-    else if data.get("username", None) != None :
+    elif data.get("username", None) != None :
         username = data.get("username", None),
     
     user =  User(id=data.get(ID_FIELD, None),
