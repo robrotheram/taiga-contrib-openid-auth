@@ -33,6 +33,20 @@ OPENID_CLIENT_SECRET : "<CLient SECRET>"
 OPENID_NAME: "Name you want to give your openid provider e.g keycloak"
 ```
 
+The following are optional fields to configure the mapping between keycloak and taiga if left blank the defaults will be used
+```
+OPENID_ID_FIELD = "sub"
+OPENID_USERNAME_FIELD = "preferred_username"
+OPENID_FULLNAME_FIELD = "name"
+OPENID_EMAIL_FIELD = "email"
+```
+
+Username fallback 
+The plugin will first try if the OpenID provider contains a feild set in OPENID_USERNAME_FIELD
+if it does not exist it will try in the following order: preferred_username  -> full_name -> username -> email
+you can override this by changing the intial field to check by setting OPENID_USERNAME_FIELD
+
+
 ### Docker-compose file modified from https://github.com/taigaio/taiga-docker
 ```
 version: "3.5"

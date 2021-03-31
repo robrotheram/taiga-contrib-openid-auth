@@ -24,3 +24,7 @@
 - Added back in required features (user signups)
 - Breaking change. To allow registrations backend needs to have 'PUBLIC_REGISTER_ENABLED=True' see Readme.md
 - Added Docker Files to allow the plugin to work with the offical taiga images for 6
+
+## 6.0.7 (2021-03-31)
+- Added username fallback 
+- Configurable Fields
