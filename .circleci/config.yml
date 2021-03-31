@@ -1,9 +1,6 @@
 version: 2
 jobs:
   build:
-    filters:
-      tags:
-        only: /^6.*/
     docker:
       - image: robrotheram/gogoallery_ci:1.15
     steps:
@@ -14,3 +11,12 @@ jobs:
       - run: make build
       - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - run: make publish
+
+workflows:
+  version: 2
+  build-and-release:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^6.*/
