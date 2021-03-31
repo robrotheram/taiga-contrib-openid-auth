@@ -3,7 +3,7 @@ override CIRCLE_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 endif
 
 ifndef CIRCLE_TAG
-override CIRCLE_TAG = $(CIRCLE_BRANCH)
+override CIRCLE_TAG = latest
 endif
 
 
