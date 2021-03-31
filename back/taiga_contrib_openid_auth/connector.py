@@ -39,6 +39,12 @@ CLIENT_ID = getattr(settings, "OPENID_CLIENT_ID", None)
 CLIENT_SECRET = getattr(settings, "OPENID_CLIENT_SECRET", None)
 TOKEN_URL = getattr(settings, "OPENID_TOKEN_URL", None)
 USER_URL = getattr(settings, "OPENID_USER_URL", None)
+
+ID_FIELD  = getattr(settings, "OPENID_ID_FIELD", "sub")
+USER_FIELD = getattr(settings, "OPENID_USERNAME_FIELD", "preferred_username")
+NAME_FIELD = getattr(settings, "OPENID_FULLNAME_FIELD", "name")
+EMAIL_FIELD = getattr(settings, "OPENID_EMAIL_FIELD", "email")
+
 HEADERS = {"Accept": "application/json", }
 
 
@@ -124,11 +130,29 @@ def get_user_profile(headers: dict = HEADERS):
 
     url = USER_URL
     data = _get(url, headers=headers)
-    return User(id=data.get("sub", None),
-                username=data.get("preferred_username", None),
-                full_name=data.get("name", None),
-                email=data.get("email", None),
+    username = None
+
+    if data.get(USER_FIELD, None) != None :
+        username = data.get(USER_FIELD, None)
+
+    elif data.get("preferred_username", None) != None :
+        username = data.get("preferred_username", None) 
+
+    elif data.get("full_name", None) != None :
+        username = data.get("full_name", None) 
+
+    elif data.get("username", None) != None :
+        username = data.get("username", None)
+
+    elif data.get("email", None) != None :
+        username = data.get("email", None)
+    
+    user =  User(id=data.get(ID_FIELD, None),
+                username=username,
+                full_name=data.get(NAME_FIELD, None),
+                email=data.get(EMAIL_FIELD, None),
                 )
+    return user
 
 ######################################################
 # Convined calls
