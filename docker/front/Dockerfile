@@ -1,7 +1,7 @@
 ARG TAIGA_VERSION=latest
 ARG RELEASE=master
 
-FROM taigaio/taiga-front:${RELEASE}
+FROM taigaio/taiga-front:${TAIGA_VERSION}
 RUN apk --update add git && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/*
