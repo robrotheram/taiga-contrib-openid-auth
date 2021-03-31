@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    filters:
+      tags:
+        only: /^6.*/
     docker:
       - image: robrotheram/gogoallery_ci:1.15
     steps:
