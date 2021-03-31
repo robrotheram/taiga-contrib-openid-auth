@@ -17,7 +17,7 @@ build-front:
 	docker build docker/front -t robrotheram/taiga-front-openid:$(CIRCLE_TAG)  --build-arg RELEASE=$(CIRCLE_BRANCH) --build-arg TAIGA_VERSION=$(CIRCLE_TAG)
 
 build-back:
-	docker build docker/back -t robrotheram/taiga-back-openid:$(CIRCLE_BRANCH)  --no-cache --build-arg RELEASE=$(CIRCLE_BRANCH) --build-arg TAIGA_VERSION=$(CIRCLE_TAG)
+	docker build docker/back -t robrotheram/taiga-back-openid:$(CIRCLE_TAG)  --no-cache --build-arg RELEASE=$(CIRCLE_BRANCH) --build-arg TAIGA_VERSION=$(CIRCLE_TAG)
 	docker build docker/back -t robrotheram/taiga-back-openid:latest --no-cache --build-arg RELEASE=$(CIRCLE_BRANCH)
 	
 publish:
