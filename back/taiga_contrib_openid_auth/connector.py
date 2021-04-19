@@ -36,6 +36,7 @@ class OpenIDApiError(ConnectorBaseException):
 ######################################################
 
 CLIENT_ID = getattr(settings, "OPENID_CLIENT_ID", None)
+CLIENT_SCOPE = getattr(settings, "OPENID_SCOPE", "openid info")
 CLIENT_SECRET = getattr(settings, "OPENID_CLIENT_SECRET", None)
 TOKEN_URL = getattr(settings, "OPENID_TOKEN_URL", None)
 USER_URL = getattr(settings, "OPENID_USER_URL", None)
@@ -114,7 +115,8 @@ def login(access_code: str, token: str, redirect_uri: str, client_id: str = CLIE
                   "code": access_code,
                   "client_id": CLIENT_ID,
                   "client_secret": CLIENT_SECRET,
-                  "redirect_uri": redirect_uri
+                  "redirect_uri": redirect_uri,
+                  "scope": CLIENT_SCOPE
                   }
         data = _post(url, params=params, headers=headers)
         return AuthInfo(access_token=data.get("access_token", None))

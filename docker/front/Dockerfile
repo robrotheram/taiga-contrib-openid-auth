@@ -11,3 +11,5 @@ RUN mkdir -p /usr/share/nginx/html/plugins/openid-auth && cp -r taiga-contrib-op
 
 COPY conf.json.template /usr/share/nginx/html/conf.json.template
 COPY 30_config_env_subst.sh /docker-entrypoint.d/30_config_env_subst.sh
+
+ENV OPENID_SCOPE="openid email"
