@@ -39,6 +39,7 @@ OPENID_ID_FIELD = "sub"
 OPENID_USERNAME_FIELD = "preferred_username"
 OPENID_FULLNAME_FIELD = "name"
 OPENID_EMAIL_FIELD = "email"
+OPENID_SCOPE="openid email"
 ```
 
 Username fallback 
@@ -94,6 +95,7 @@ x-environment:
   OPENID_TOKEN_URL : "https://{url-to-keycloak}/auth/realms/{realm}/protocol/openid-connect/token"
   OPENID_CLIENT_ID : "<CLient ID>"
   OPENID_CLIENT_SECRET : "<CLient SECRET>"
+  OPENID_SCOPE="openid email"
 
 x-volumes:
   &default-back-volumes
@@ -275,5 +277,6 @@ My thanks to all the people who have added to the plugin
 @cristianlazarop 
 @swedishborgie
 @baloo42 
+@carneirofc
 The whole taiga team who wrote the github plugin that this plugin is based off.
 

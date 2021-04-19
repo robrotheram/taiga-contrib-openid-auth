@@ -28,3 +28,6 @@
 ## 6.0.7 (2021-03-31)
 - Added username fallback 
 - Configurable Fields
+
+## 6.0.8 (2021-04-19)
+- Added Scope paramater to openid request
