@@ -29,6 +29,7 @@
     "gravatar": false,
     "rtlLanguages": ["fa"],
     "openidAuth" : "${OPENID_URL}",
+    "openidScope" : "${OPENID_SCOPE}",
     "openidName" : "${OPENID_NAME}",
     "openidClientId": "${OPENID_CLIENT_ID}"
 }

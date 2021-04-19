@@ -34,6 +34,7 @@ OpenIDLoginButtonDirective = ($window, $params, $location, $config, $events, $co
 
 	link = ($scope, $el, $attrs) ->
 		AUTH_URL = $config.get("openidAuth", null)
+		AUTH_SCOPE = $config.get("openidScope", "User.Read")
 		CLIENT_ID = $config.get("openidClientId", "taiga")
 		$scope.openid_name = $config.get("openidName", "openid-connect")
 		loginOnSuccess = (response) ->
@@ -82,7 +83,7 @@ OpenIDLoginButtonDirective = ($window, $params, $location, $config, $events, $co
 		$el.on "click", ".button-auth", (event) ->
 			console.log(redirectURL());
 			redirectToUri = redirectURL();
-			url = "#{AUTH_URL}?redirect_uri=#{redirectToUri}&client_id=#{CLIENT_ID}&response_type=code"
+			url = "#{AUTH_URL}?redirect_uri=#{redirectToUri}&client_id=#{CLIENT_ID}&response_type=code&scope=#{AUTH_SCOPE}"
 			window.location.href = url
 
 		$scope.$on "$destroy", ->
