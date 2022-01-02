@@ -1,16 +1,19 @@
 taiga-contrib-openid-auth
 =========================
 An OpenID / Keycloak Authentication Plugin. Heavily based off of
-[taiga-contrib-github-auth](https://github.com/taigaio/taiga-contrib-github-auth).
+[taiga-contrib-github-auth](https://github.com/kaleidos-ventures/taiga-contrib-github-auth/).
 
 Compatible with Taiga 4.2.1, 5.x, 6
+
+&gt; **READ THIS FIRST!**: We recently announced Taiga plans for the future and they greatly affect how we manage this repository and the current Taiga 6 release. Check it [here](https://blog.taiga.io/announcing_taiganext.html).
+
 
 # Installation
 
 ## Docker
 This plugin is compatible with the offical taiga docker images 😃
 
-https://github.com/taigaio/taiga-docker
+https://github.com/kaleidos-ventures/taiga-docker/
 
 This project builds 2 images based off the images provided by taiga. This should allow anyother customisations to continue to work.
 
@@ -48,7 +51,7 @@ if it does not exist it will try in the following order: preferred_username  -> 
 you can override this by changing the intial field to check by setting OPENID_USERNAME_FIELD
 
 
-### Docker-compose file modified from https://github.com/taigaio/taiga-docker
+### Docker-compose file modified from https://github.com/kaleidos-ventures/taiga-docker/
 ```
 version: "3.5"
 
@@ -227,10 +230,10 @@ networks:
 For Docker building for new release make sure that the following files are coppied into the docker directory
 
 **Backend:**
-Copy https://raw.githubusercontent.com/taigaio/taiga-back/master/docker/config.py
+Copy https://raw.githubusercontent.com/kaleidos-ventures/taiga-back/main/docker/config.py
 
 **Frontend:**
-copy the config.json and config_env_subst.sh from https://github.com/taigaio/taiga-front/tree/master/docker
+copy the config.json and config_env_subst.sh from https://github.com/kaleidos-ventures/taiga-front/tree/main/docker
 
 
 
