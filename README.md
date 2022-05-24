@@ -45,6 +45,15 @@ OPENID_EMAIL_FIELD = "email"
 OPENID_SCOPE="openid email"
 ```
 
+The following are optional fields to configure filtering users based on the openid-userinfo. A common use case is to allow only
+specific roles or groups to log into taiga.
+`OPENID_FILTER_FIELD` is the name of the claim that's present in the UserInfo. The field is expected to be a list of strings.
+`OPENID_FILTER` is the allowed values, comma seperated. 
+```
+OPENID_FILTER = "taiga_users,taiga_admins"
+OPENID_FILTER_FIELD = "groups"
+```
+
 Username fallback 
 The plugin will first try if the OpenID provider contains a feild set in OPENID_USERNAME_FIELD
 if it does not exist it will try in the following order: preferred_username  -> full_name -> username -> email
