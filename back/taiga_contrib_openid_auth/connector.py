@@ -25,7 +25,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from taiga.base.connectors.exceptions import ConnectorBaseException
-
+from taiga.base.exceptions import AuthenticationFailed
 
 class OpenIDApiError(ConnectorBaseException):
     pass
@@ -40,15 +40,15 @@ CLIENT_SCOPE = getattr(settings, "OPENID_SCOPE", "openid info")
 CLIENT_SECRET = getattr(settings, "OPENID_CLIENT_SECRET", None)
 TOKEN_URL = getattr(settings, "OPENID_TOKEN_URL", None)
 USER_URL = getattr(settings, "OPENID_USER_URL", None)
+OPENID_FILTER = getattr(settings, "OPENID_FILTER", "")
 
 ID_FIELD  = getattr(settings, "OPENID_ID_FIELD", "sub")
 USER_FIELD = getattr(settings, "OPENID_USERNAME_FIELD", "preferred_username")
 NAME_FIELD = getattr(settings, "OPENID_FULLNAME_FIELD", "name")
 EMAIL_FIELD = getattr(settings, "OPENID_EMAIL_FIELD", "email")
+FILTER_FIELD = getattr(settings, "OPENID_FILTER_FIELD", None)
 
 HEADERS = {"Accept": "application/json", }
-
-
 
 AuthInfo = namedtuple("AuthInfo", ["access_token"])
 User = namedtuple("User", ["id", "username", "full_name", "email"])
@@ -132,6 +132,15 @@ def get_user_profile(headers: dict = HEADERS):
 
     url = USER_URL
     data = _get(url, headers=headers)
+
+    if FILTER_FIELD:
+        userinfo_filter_claim = data.get(FILTER_FIELD, None)
+        if userinfo_filter_claim is None:
+            raise AuthenticationFailed("OPENID_FILTER_CLAIM provided but '{0}' not found in UserInfo".format(FILTER_FIELD))
+        filter_allowed = set(OPENID_FILTER.split(','))
+        if not filter_allowed & set(userinfo_filter_claim):
+            raise AuthenticationFailed("User does not satisfy OPENID_FILTER")
+
     username = None
 
     if data.get(USER_FIELD, None) != None :
