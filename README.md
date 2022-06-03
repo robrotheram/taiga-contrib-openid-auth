@@ -238,9 +238,6 @@ networks:
 
 For Docker building for new release make sure that the following files are coppied into the docker directory
 
-**Backend:**
-Copy https://raw.githubusercontent.com/kaleidos-ventures/taiga-back/main/docker/config.py
-
 **Frontend:**
 copy the config.json and config_env_subst.sh from https://github.com/kaleidos-ventures/taiga-front/tree/main/docker
 

@@ -1,8 +1,10 @@
 ARG TAIGA_VERSION=latest
 ARG RELEASE=master
 FROM taigaio/taiga-back:${TAIGA_VERSION}
-RUN apt-get update && apt-get install git -y
-RUN git clone https://github.com/robrotheram/taiga-contrib-openid-auth && cd taiga-contrib-openid-auth && git checkout ${RELEASE}
-RUN cd taiga-contrib-openid-auth/back; pip install -e .
-COPY config.py /taiga-back/settings/config.py
 ENV OPENID_SCOPE="openid email"
+ADD config.py.snippet /tmp
+RUN python -c 'import urllib.request as r; r.urlretrieve("https://github.com/robrotheram/taiga-contrib-openid-auth/archive/refs/heads/master.tar.gz", "/tmp/taiga-contrib-openid-auth.tar.gz")' \
+ && tar xzf /tmp/taiga-contrib-openid-auth.tar.gz -C /tmp \
+ && pip install /tmp/taiga-contrib-openid-auth*/back \
+ && rm -r /tmp/taiga-contrib-openid-auth* \
+ && cat /tmp/config.py.snippet >> /taiga-back/settings/config.py
