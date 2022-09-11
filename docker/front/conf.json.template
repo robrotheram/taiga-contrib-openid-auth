@@ -1,4 +1,7 @@
 {
+    "api": "${TAIGA_URL}${TAIGA_SUBPATH}/api/v1/",
+    "eventsUrl": "${TAIGA_WEBSOCKETS_URL}${TAIGA_SUBPATH}/events",
+    "baseHref": "${TAIGA_SUBPATH}/",
     "api": "${TAIGA_URL}/api/v1/",
     "eventsUrl": "${TAIGA_WEBSOCKETS_URL}/events",
     "eventsMaxMissedHeartbeats": 5,
