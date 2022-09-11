@@ -5,5 +5,5 @@
     "type": "auth",
     "module": "taigaContrib.openidAuth",
     "template": "/plugins/openid-auth/openid-auth.html",
-    "js": "/plugins/openid-auth/openid-auth.js"
+    "js": "plugins/openid-auth/openid-auth.js"
 }
