@@ -27,6 +27,8 @@ from django.utils.translation import ugettext_lazy as _
 from taiga.base.connectors.exceptions import ConnectorBaseException
 from taiga.base.exceptions import AuthenticationFailed
 
+import logging
+
 class OpenIDApiError(ConnectorBaseException):
     pass
 
@@ -89,10 +91,17 @@ def _post(url: str, params: dict, headers: dict) -> dict:
     Make a POST call.
     """
     response = requests.post(url, data=params, headers=headers)
-    data = response.json()
-    if response.status_code != 200 or "error" in data:
+    try:
+        data = response.json()
+    except:
         raise OpenIDApiError({"status_code": response.status_code,
-                              "error": data.get("error", "")})
+                        "error": 'error from data not retrievable',
+                        "content": response.content})
+    else:
+        if response.status_code != 200 or ("error" in data):
+            raise OpenIDApiError({"status_code": response.status_code,
+                            "error": data.get("error", ""),
+                            "content": response.content})
     return data
 
 
@@ -163,6 +172,7 @@ def get_user_profile(headers: dict = HEADERS):
                 full_name=data.get(NAME_FIELD, None),
                 email=data.get(EMAIL_FIELD, None),
                 )
+    # logging.warning([data.get(ID_FIELD, None), username, data.get(NAME_FIELD, None), data.get(EMAIL_FIELD, None)])
     return user
 
 ######################################################
